@@ -1,0 +1,19 @@
+REM *******************************************
+REM   Commands to batch installation of the additional
+REM modules that are required for React client app,
+REM mainly Redux and React-Router
+REM *******************************************
+
+@ECHO ON
+
+ECHO installing Redux ...
+npm install --save redux react-redux
+
+ECHO installing Redux dev tools ...
+npm install --save-dev redux-devtools redux-devtools-extension
+
+ECHO installing Redux middlewares ...
+npm install --save redux-logger redux-thunk
+
+ECHO installing fetch ...
+npm install --save cross-fetch
