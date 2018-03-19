@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {selectOperationAction} from './actions';
-import MainView from './view/MainView';
+import AppView from './view/AppView';
 
 class Controller extends Component {
   constructor(props) {
@@ -19,12 +19,13 @@ class Controller extends Component {
   }
 
   render() {
+    const currSelectedOption = this.props.store.getState().activeOperation;
     const handlers = {
       sidebarOptionSelected: this.handleSidebarOptionSelected,
     };
 
     return (
-      <MainView eventHandlers={handlers}/>
+      <AppView activity={currSelectedOption} eventHandlers={handlers}/>
     );
   }
 }
