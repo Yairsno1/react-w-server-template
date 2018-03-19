@@ -12,7 +12,7 @@ class SidebarOptionIconButton extends Component {
       'w3-xxlarge'];
 
     return (
-      <AbsSidebarOptionButton textColor={iconColor}>
+      <AbsSidebarOptionButton textColor={iconColor} onSelected={this.props.onSelected}>
         <span className={classItems.join(' ')}></span>
       </AbsSidebarOptionButton>
     );

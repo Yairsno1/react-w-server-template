@@ -3,11 +3,11 @@ import Sidebar from './sidebar/Sidebar';
 
 class MainView extends Component {
   render() {
-    //const ehs = this.props.eventHandlers;
+    const ehs = this.props.eventHandlers;
 
     return (
       <div className="w3-row">
-        <Sidebar/>
+        <Sidebar onOptionSelected={ehs.sidebarOptionSelected}/>
       </div>
     );
   }

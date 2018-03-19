@@ -7,7 +7,7 @@ class SidebarOptionTextButton extends Component {
     const txtColor = this.props.textColor;
 
     return (
-      <AbsSidebarOptionButton textColor={txtColor}>
+      <AbsSidebarOptionButton textColor={txtColor} onSelected={this.props.onSelected}>
         <span className="w3-xlarge"><b>{text}</b></span>
       </AbsSidebarOptionButton>
     );

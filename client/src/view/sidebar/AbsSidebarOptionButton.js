@@ -13,7 +13,7 @@ class AbsSidebarOptionButton extends Component {
       'w3-hover-text-black'];
 
     return (
-      <button className={classItems.join(' ')}>
+      <button className={classItems.join(' ')} onClick={this.props.onSelected}>
         {this.props.children}
       </button>
     );

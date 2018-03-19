@@ -9,9 +9,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    //onClick: () => {
-    //  ownProps.onClick(dispatch);
-    //},
+    onOptionSelected: (option) => {
+      ownProps.onOptionSelected(dispatch, option);
+    },
   };
 };
 

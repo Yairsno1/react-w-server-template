@@ -2,9 +2,9 @@
 export const SELECT_OPERATION = 'SELECT_OPERATION';
 
 // --- action creators ---
-export function SelectOperation(operation) {
+export function selectOperationAction(operation) {
   return {
     type: SELECT_OPERATION,
-    opertation: operation,
+    operation: operation,
   };
 }
