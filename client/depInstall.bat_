@@ -6,6 +6,9 @@ REM *******************************************
 
 @ECHO ON
 
+ECHO installing GUID generator ...
+npm install --save node-uuid
+
 ECHO installing Redux ...
 npm install --save redux react-redux
 
@@ -14,6 +17,9 @@ npm install --save-dev redux-devtools redux-devtools-extension
 
 ECHO installing Redux middlewares ...
 npm install --save redux-logger redux-thunk
+
+ECHO installing React Router ...
+npm install --save react-router-dom
 
 ECHO installing fetch ...
 npm install --save cross-fetch

@@ -1,19 +1,19 @@
 import './css/w3v4.css';
 import './css/custom.css';
 import './index.css';
-import sidebarOptionEnum from './view/sidebar/sidebarOptionEnum';
 import { createStore, applyMiddleware } from 'redux'
 import rootReducer from './rootReducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunkMiddleware from 'redux-thunk';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { Provider } from 'react-redux';
 import Controller from './Controller';
 import registerServiceWorker from './registerServiceWorker';
 
 const intialState = {
-  activeOperation: sidebarOptionEnum.idle,
+  activeOperation: '', //Todo: redundant => remove
 };
 
 const store = createStore(rootReducer,
@@ -24,9 +24,17 @@ const store = createStore(rootReducer,
 
 ReactDOM.render(
   <Provider store={store}>
-    <Controller store={store}/>
+    <Router>
+      <Route
+        path="/:route?"
+        component={
+          (props) => <Controller store={store} route={props.match.params.route}/>
+        }
+      />
+    </Router>
   </Provider>,
   document.getElementById('root')
 );
 
 registerServiceWorker();
+

@@ -1,7 +1,7 @@
 import { SELECT_OPERATION } from '../../actions';
-import sidebarOptionEnum from './sidebarOptionEnum';
+import {routeEnum} from '../../util/navHelper';
 
-const selectOptionReducer = (state=sidebarOptionEnum.idle, action) => {
+const selectOptionReducer = (state=routeEnum.home, action) => {
   let rv = state;
 
   if (SELECT_OPERATION === action.type) {

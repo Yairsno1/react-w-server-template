@@ -1,9 +1,12 @@
 import { connect } from 'react-redux'
+import {routeEnum} from '../../util/navHelper';
 import ActivityPanelCtrl from './ActivityPanelCtrl';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
+  const activity = ownProps.route ? ownProps.route.toUpperCase() : routeEnum.home;
+
   return {
-    activity: state.activeOperation,
+    activity: activity,
   };
 };
 
@@ -15,6 +18,6 @@ const mapStateToProps = (state) => {
 //   };
 // };
 
-const ActivityPanel = connect(mapStateToProps/*, mapDispatchToProps*/)(ActivityPanelCtrl)
+const ActivityPanel = connect(mapStateToProps/*, mapDispatchToProps*/)(ActivityPanelCtrl);
 
 export default ActivityPanel;

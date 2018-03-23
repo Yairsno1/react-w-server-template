@@ -1,9 +1,13 @@
 import { connect } from 'react-redux'
 import SidebarCtrl from './SidebarCtrl';
+import {withRouter} from 'react-router';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
+  const option = ownProps.match.params.route || '';
+  const selected = option.toUpperCase();
+
   return {
-    selected: state.activeOperation,
+    selected: selected,
   };
 };
 
@@ -15,6 +19,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
-const Sidebar = connect(mapStateToProps, mapDispatchToProps)(SidebarCtrl)
+const Sidebar = withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(SidebarCtrl));
 
 export default Sidebar;

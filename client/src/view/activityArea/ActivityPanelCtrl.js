@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import sidebarOptionEnum from '../sidebar/sidebarOptionEnum'
+import {routeEnum} from '../../util/navHelper';
 
 function ActivityCrtlMock(props) {
   let c = 'w3-content w3-container w3-padding-16 w3-' + props.color;
@@ -27,15 +27,15 @@ class ActivityPanelCtrl extends Component {
 
       let activityCtrl = null;
 
-      if (sidebarOptionEnum.idle === this.props.activity) {
+      if (routeEnum.home === this.props.activity) {
         activityCtrl = <ActivityCrtlMock color={"white"} text={"חשבון, זה פשוט"}/>
-      } else if (sidebarOptionEnum.add === this.props.activity) {
+      } else if (routeEnum.add === this.props.activity) {
         activityCtrl = <ActivityCrtlMock color={"green"} text={"2 + 2"}/>
-      } else if (sidebarOptionEnum.substract === this.props.activity) {
+      } else if (routeEnum.sub === this.props.activity) {
         activityCtrl = <ActivityCrtlMock color={"deep-orange"} text={"6-2"}/>
-      } else if (sidebarOptionEnum.multiply === this.props.activity) {
+      } else if (routeEnum.mult === this.props.activity) {
         activityCtrl = <ActivityCrtlMock color={"blue"} text={"1 x 4"}/>
-      }  else if (sidebarOptionEnum.divide === this.props.activity) {
+      }  else if (routeEnum.div === this.props.activity) {
         activityCtrl = <ActivityCrtlMock color={"yellow"} text={"8 : 2"}/>
       }
 
