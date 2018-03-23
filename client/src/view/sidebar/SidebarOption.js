@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 class SidebarOption extends Component {
   render () {
@@ -20,5 +21,10 @@ class SidebarOption extends Component {
     );
   }
 }
+
+SidebarOption.propTypes = {
+  isSelected: PropTypes.bool.isRequired,
+  color: PropTypes.string.isRequired,
+};
 
 export default SidebarOption;

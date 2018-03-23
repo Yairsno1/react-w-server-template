@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 class AbsSidebarOptionButton extends Component {
   render() {
@@ -19,5 +20,10 @@ class AbsSidebarOptionButton extends Component {
     );
   }
 }
+
+AbsSidebarOptionButton.propTypes = {
+  textColor: PropTypes.string.isRequired,
+  onSelected: PropTypes.func.isRequired,
+};
 
 export default AbsSidebarOptionButton;

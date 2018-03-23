@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import AbsSidebarOptionButton from './AbsSidebarOptionButton';
+import PropTypes from 'prop-types';
 
 //Awesome icons class should be passed on the {content} prop.
 class SidebarOptionIconButton extends Component {
@@ -18,5 +19,11 @@ class SidebarOptionIconButton extends Component {
     );
   }
 }
+
+SidebarOptionIconButton.propTypes = {
+  content: PropTypes.string.isRequired,
+  iconColor: PropTypes.string.isRequired,
+  onSelected: PropTypes.func.isRequired,
+};
 
 export default SidebarOptionIconButton;

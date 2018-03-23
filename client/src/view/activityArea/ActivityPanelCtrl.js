@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {routeEnum} from '../../util/navHelper';
+import PropTypes from 'prop-types';
 
 function ActivityCrtlMock(props) {
   let c = 'w3-content w3-container w3-padding-16 w3-' + props.color;
@@ -46,5 +47,9 @@ class ActivityPanelCtrl extends Component {
     );
   }
 }
+
+ActivityPanelCtrl.propTypes = {
+  activity: PropTypes.string.isRequired,
+};
 
 export default ActivityPanelCtrl;

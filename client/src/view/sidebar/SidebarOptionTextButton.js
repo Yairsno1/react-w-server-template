@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import AbsSidebarOptionButton from './AbsSidebarOptionButton';
+import PropTypes from 'prop-types';
 
 class SidebarOptionTextButton extends Component {
   render() {
@@ -13,5 +14,11 @@ class SidebarOptionTextButton extends Component {
     );
   }
 }
+
+SidebarOptionTextButton.propTypes = {
+  content: PropTypes.string.isRequired,
+  textColor: PropTypes.string.isRequired,
+  onSelected: PropTypes.func.isRequired,
+};
 
 export default SidebarOptionTextButton;

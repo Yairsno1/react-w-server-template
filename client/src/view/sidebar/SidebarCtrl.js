@@ -5,6 +5,7 @@ import SidebarOption from './SidebarOption';
 import SidebarOptionIconButton from './SidebarOptionIconButton';
 import SidebarOptionText from './SidebarOptionText';
 import SidebarOptionTextButton from './SidebarOptionTextButton';
+import PropTypes from 'prop-types';
 
 const colors = {
   home: 'white',
@@ -120,5 +121,9 @@ class SidebarCtrl extends Component {
     );
   }
 }
+
+SidebarCtrl.propTypes = {
+  selected: PropTypes.string.isRequired,
+};
 
 export default SidebarCtrl;

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {routeEnum} from './util/navHelper';
 import {selectOperationAction} from './actions';
 import AppView from './view/AppView';
+import PropTypes from 'prop-types';
 
 const operationKindEnum = {
   noOp: 0,
@@ -64,5 +65,10 @@ class Controller extends Component {
     );
   }
 }
+
+Controller.propTypes = {
+  route: PropTypes.string,
+  store: PropTypes.object.isRequired,
+};
 
 export default Controller;

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { NavLink } from 'react-router-dom';
 import {routeEnum} from '../../util/navHelper'
+import PropTypes from 'prop-types';
 
 class SidebarNavigation extends Component {
   render() {
@@ -32,5 +33,9 @@ class SidebarNavigation extends Component {
     );
   }
 }
+
+SidebarNavigation.propTypes = {
+  url: PropTypes.string.isRequired,
+};
 
 export default SidebarNavigation;

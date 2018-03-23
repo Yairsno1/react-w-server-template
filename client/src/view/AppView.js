@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-
 import Sidebar from './sidebar/Sidebar';
 import ActivityPanel from './activityArea/ActivityPanel';
+import PropTypes from 'prop-types';
 
 class AppView extends Component {
   render() {
@@ -19,5 +19,9 @@ class AppView extends Component {
   }
 }
 
+AppView.propTypes = {
+  eventHandlers: PropTypes.object.isRequired,
+  route: PropTypes.string,
+};
+
 export default AppView;
-//<Sidebar route={this.props.route} onOptionSelected={ehs.sidebarOptionSelected}/>
