@@ -10,14 +10,16 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-// const mapDispatchToProps = (dispatch, ownProps) => {
-//   return {
-//     onOptionSelected: (option) => {
-//       ownProps.onOptionSelected(dispatch, option);
-//     },
-//   };
-// };
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    onNextQ: () => {
+      ownProps.onNextQ(dispatch);
+    },
+  };
+};
 
-const ActivityPanel = connect(mapStateToProps/*, mapDispatchToProps*/)(ActivityPanelCtrl);
+const ActivityPanel = connect(
+  mapStateToProps,
+  mapDispatchToProps)(ActivityPanelCtrl);
 
 export default ActivityPanel;

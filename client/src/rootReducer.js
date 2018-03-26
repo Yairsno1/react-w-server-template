@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import selectOptionReducer from './view/sidebar/selectOptionReducer';
+import activityStatusReducer from './view/activityArea/activityStatusReducer';
 
 const rootReducer = combineReducers({
-  activeOperation: selectOptionReducer,
+  activityStatus: activityStatusReducer,
 });
 
 export default rootReducer;

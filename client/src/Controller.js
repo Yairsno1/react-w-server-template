@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {routeEnum} from './util/navHelper';
-import {selectOperationAction} from './actions';
+import {changeActivityStatusAction} from './actions';
+import activityStatusEnum from './view/activityArea/activityStatusEnum';
 import AppView from './view/AppView';
 import PropTypes from 'prop-types';
 
@@ -37,16 +38,26 @@ class Controller extends Component {
 
     this.state = {operation: operationKindEnum.noOp};
 
+    this.handleReceiveExpression = this.handleReceiveExpression.bind(this);
     this.handleSidebarOptionSelected = this.handleSidebarOptionSelected.bind(this);
   }
 
-  handleSidebarOptionSelected(dispatch, option) {
-    const currSelectedOption = this.props.store.getState().activeOperation;
+  handleReceiveExpression(dispatch) {
+    //-------------------------------------------
+    //AJAX mock
+    //Remove after AJAX call will be implemented.
+    setTimeout(() => {
+        dispatch(changeActivityStatusAction(activityStatusEnum.q));
+      },
+      2000
+    );
+    //-------------------------------------------
+    //Todo ...
+  }
 
-    if (currSelectedOption !== option)
-    {
-      dispatch(selectOperationAction(option));
-    }
+  handleSidebarOptionSelected(dispatch, option) {
+    this.setState({operation: route2Op(option)});
+    dispatch(changeActivityStatusAction(activityStatusEnum.next));
   }
 
   componentDidMount() {
@@ -56,6 +67,7 @@ class Controller extends Component {
   render() {
     const handlers = {
       sidebarOptionSelected: this.handleSidebarOptionSelected,
+      receiveExpression: this.handleReceiveExpression,
     };
 
     return (

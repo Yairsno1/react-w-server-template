@@ -1,10 +1,10 @@
 //action types
-export const SELECT_OPERATION = 'SELECT_OPERATION';
+export const CHANGE_ACTIVITY_STATUS = 'CHANGE_ACTIVITY_STATUS';
 
 // --- action creators ---
-export function selectOperationAction(operation) {
+export function changeActivityStatusAction(status) {
   return {
-    type: SELECT_OPERATION,
-    operation: operation,
+    type: CHANGE_ACTIVITY_STATUS,
+    status: status,
   };
 }

@@ -13,7 +13,9 @@ class AppView extends Component {
     return (
       <div className="w3-row">
         <Sidebar onOptionSelected={ehs.sidebarOptionSelected}/>
-        <ActivityPanel route={this.props.route} />
+        <ActivityPanel
+          route={this.props.route}
+          onNextQ={ehs.receiveExpression} />
       </div>
     );
   }

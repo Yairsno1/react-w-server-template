@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {routeEnum} from '../../util/navHelper';
+import Home from './Home';
+import Activity from './Activity';
 import PropTypes from 'prop-types';
 
 function ActivityCrtlMock(props) {
@@ -29,9 +31,13 @@ class ActivityPanelCtrl extends Component {
       let activityCtrl = null;
 
       if (routeEnum.home === this.props.activity) {
-        activityCtrl = <ActivityCrtlMock color={"white"} text={"חשבון, זה פשוט"}/>
+        activityCtrl = <Home key={routeEnum.home} />
       } else if (routeEnum.add === this.props.activity) {
-        activityCtrl = <ActivityCrtlMock color={"green"} text={"2 + 2"}/>
+        activityCtrl = <Activity
+          key={routeEnum.add}
+          color={"green"}
+          onNextQ={this.props.onNextQ}
+        />
       } else if (routeEnum.sub === this.props.activity) {
         activityCtrl = <ActivityCrtlMock color={"deep-orange"} text={"6-2"}/>
       } else if (routeEnum.mult === this.props.activity) {
@@ -50,6 +56,7 @@ class ActivityPanelCtrl extends Component {
 
 ActivityPanelCtrl.propTypes = {
   activity: PropTypes.string.isRequired,
+  onNextQ: PropTypes.func.isRequired,
 };
 
 export default ActivityPanelCtrl;

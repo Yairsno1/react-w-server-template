@@ -1,6 +1,7 @@
 import './css/w3v4.css';
 import './css/custom.css';
 import './index.css';
+import activityStatusEnum from './view/activityArea/activityStatusEnum';
 import { createStore, applyMiddleware } from 'redux'
 import rootReducer from './rootReducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -13,7 +14,7 @@ import Controller from './Controller';
 import registerServiceWorker from './registerServiceWorker';
 
 const intialState = {
-  activeOperation: '', //Todo: redundant => remove
+  activityStatus: activityStatusEnum.next,
 };
 
 const store = createStore(rootReducer,
