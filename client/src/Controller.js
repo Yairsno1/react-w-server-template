@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
+import {operationKindEnum} from './model/QandA';
+import QandA from './model/QandA';
 import {routeEnum} from './util/navHelper';
-import {changeActivityStatusAction} from './actions';
+import {generateQuestionAction} from './actions';
 import activityStatusEnum from './view/activityArea/activityStatusEnum';
 import AppView from './view/AppView';
 import PropTypes from 'prop-types';
 
-const operationKindEnum = {
-  noOp: 0,
-  add: 1,
-  sub: 2,
-  mult: 3,
-  div: 4,
-};
 
 const route2Op = (route) => {
   let rv = operationKindEnum.noOp;
@@ -32,11 +27,27 @@ const route2Op = (route) => {
   return rv;
 };
 
+const getOperationSymbol = (operation) => {
+  let rv = '';
+
+  if (operationKindEnum.add === operation) {
+    rv = '+';
+  } else if (operationKindEnum.sub === operation) {
+    rv = '-';
+  } else if (operationKindEnum.mult === operation) {
+    rv = 'x';
+  } else if (operationKindEnum.div === operation) {
+    rv = '/'; //Todo: replace symbol
+  }
+
+  return rv;
+};
+
 class Controller extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {operation: operationKindEnum.noOp};
+    this.state = {model: new QandA(operationKindEnum.noOp)};
 
     this.handleReceiveExpression = this.handleReceiveExpression.bind(this);
     this.handleSidebarOptionSelected = this.handleSidebarOptionSelected.bind(this);
@@ -47,7 +58,20 @@ class Controller extends Component {
     //AJAX mock
     //Remove after AJAX call will be implemented.
     setTimeout(() => {
-        dispatch(changeActivityStatusAction(activityStatusEnum.q));
+        this.setState((currState, props) => {
+          let nextModelObj = new QandA(currState.model.op);
+          nextModelObj.genExprMock(nextModelObj.op);
+
+          return {model: nextModelObj}
+        });
+
+        const qComps = [
+          this.state.model.leftOprnd,
+          getOperationSymbol(this.state.model.op),
+          this.state.model.rightOprnd,
+          '= ?'
+        ];
+        dispatch(generateQuestionAction(activityStatusEnum.q, qComps.join(' ')));
       },
       2000
     );
@@ -56,12 +80,17 @@ class Controller extends Component {
   }
 
   handleSidebarOptionSelected(dispatch, option) {
-    this.setState({operation: route2Op(option)});
-    dispatch(changeActivityStatusAction(activityStatusEnum.next));
+    this.setState({
+      model: new QandA(route2Op(option))
+    });
+
+    dispatch(generateQuestionAction(activityStatusEnum.next, ''));
   }
 
   componentDidMount() {
-    this.setState({operation: route2Op(this.props.route)});
+    this.setState({
+      model: new QandA(route2Op(this.props.route))
+    });
   }
 
   render() {

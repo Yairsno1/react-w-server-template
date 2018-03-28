@@ -25,7 +25,7 @@ class ActivityCtrl extends Component {
     if (activityStatusEnum.next === status) {
       ExprCtrl = <WaitCtrl />;
     } else if (activityStatusEnum.q === status) {
-      ExprCtrl = <QCtrl />;
+      ExprCtrl = <QCtrl text={this.props.qText}/>;
     }
 
     return (

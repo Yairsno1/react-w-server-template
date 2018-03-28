@@ -1,10 +1,11 @@
 //action types
-export const CHANGE_ACTIVITY_STATUS = 'CHANGE_ACTIVITY_STATUS';
+export const GENERATE_Q = 'GENERATE_Q';
 
 // --- action creators ---
-export function changeActivityStatusAction(status) {
+export function generateQuestionAction(status, qText) {
   return {
-    type: CHANGE_ACTIVITY_STATUS,
+    type: GENERATE_Q,
     status: status,
+    qText: qText,
   };
 }

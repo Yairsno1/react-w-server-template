@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import activityStatusReducer from './view/activityArea/activityStatusReducer';
+import activityReducer from './view/activityArea/activityReducer';
 
 const rootReducer = combineReducers({
-  activityStatus: activityStatusReducer,
+  activity: activityReducer,
 });
 
 export default rootReducer;

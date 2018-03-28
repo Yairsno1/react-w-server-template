@@ -7,7 +7,7 @@ export class QCtrl extends Component {
     return(
       <div className="w3-container w3-center">
         <p dir="ltr" className="w3-xxxlarge w3-text-black">
-          <b>1+1=?</b>
+          <b>{this.props.text}</b>
         </p>
       </div>
     );

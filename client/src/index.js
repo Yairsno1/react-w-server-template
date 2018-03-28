@@ -14,7 +14,10 @@ import Controller from './Controller';
 import registerServiceWorker from './registerServiceWorker';
 
 const intialState = {
-  activityStatus: activityStatusEnum.next,
+  activity: {
+    status: activityStatusEnum.next,
+    qText: '',
+  },
 };
 
 const store = createStore(rootReducer,

@@ -4,8 +4,9 @@ import ActivityCtrl from './ActivityCtrl';
 const mapStateToProps = (state, ownProps) => {
 
   return {
-    activityStatus: state.activityStatus,
     color: ownProps.color,
+    activityStatus: state.activity.status,
+    qText: state.activity.qText,
   };
 };
 
