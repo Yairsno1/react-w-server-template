@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import {operationKindEnum} from './model/QandA';
 import QandA from './model/QandA';
 import {routeEnum} from './util/navHelper';
-import {generateQuestionAction} from './actions';
+import {
+  generateQuestionAction,
+  changeOperationAction} from './actions';
 import activityStatusEnum from './view/activityArea/activityStatusEnum';
 import AppView from './view/AppView';
 import PropTypes from 'prop-types';
@@ -84,7 +86,7 @@ class Controller extends Component {
       model: new QandA(route2Op(option))
     });
 
-    dispatch(generateQuestionAction(activityStatusEnum.next, ''));
+    dispatch(changeOperationAction());
   }
 
   componentDidMount() {

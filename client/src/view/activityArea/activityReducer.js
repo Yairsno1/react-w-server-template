@@ -1,5 +1,7 @@
 import activityStatusEnum from './activityStatusEnum';
-import {GENERATE_Q} from '../../actions';
+import {
+  GENERATE_Q,
+  CHANGE_OPERATION} from '../../actions';
 
 const activityTextReducer = (
   state={
@@ -13,6 +15,11 @@ const activityTextReducer = (
     rv = {
       status: action.status,
       qText: action.qText,
+    };
+  } else if (CHANGE_OPERATION === action.type) {
+    rv = {
+      status: activityStatusEnum.next,
+      qText: '',
     };
   }
 
