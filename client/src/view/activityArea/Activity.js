@@ -15,6 +15,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     nextQ: () => {
       ownProps.onNextQ(dispatch);
     },
+    answer: (a) => {
+      ownProps.onAnswer(a);
+    },
   };
 };
 

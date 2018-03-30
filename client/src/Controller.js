@@ -4,7 +4,8 @@ import QandA from './model/QandA';
 import {routeEnum} from './util/navHelper';
 import {
   generateQuestionAction,
-  changeOperationAction} from './actions';
+  changeOperationAction,
+  correctAnswerAction} from './actions';
 import activityStatusEnum from './view/activityArea/activityStatusEnum';
 import AppView from './view/AppView';
 import PropTypes from 'prop-types';
@@ -29,6 +30,18 @@ const route2Op = (route) => {
   return rv;
 };
 
+//We have the model object as parameter instead of this.state.model
+//because at times of call to this function, the state wasn't refreshed yet.
+const expressionBuilder = (model) => {
+  const exprComps = [
+    model.leftOprnd,
+    getOperationSymbol(model.op),
+    model.rightOprnd,
+  ];
+
+  return exprComps.join(' ');
+}
+
 const getOperationSymbol = (operation) => {
   let rv = '';
 
@@ -51,8 +64,34 @@ class Controller extends Component {
 
     this.state = {model: new QandA(operationKindEnum.noOp)};
 
+    this.handleAnswer = this.handleAnswer.bind(this);
     this.handleReceiveExpression = this.handleReceiveExpression.bind(this);
     this.handleSidebarOptionSelected = this.handleSidebarOptionSelected.bind(this);
+  }
+
+  handleAnswer(dispatch, answer) {
+    let nextModelObj;
+    let answerOk;
+
+    nextModelObj = this.state.model.clone();
+    nextModelObj.result = answer;
+    answerOk = nextModelObj.isCorrectResult();
+
+    this.setState(
+      {model: nextModelObj}
+    );
+
+    if (answerOk) {
+      const aComps = [
+        expressionBuilder(nextModelObj),
+        '=',
+        answer
+      ];
+
+      dispatch(correctAnswerAction(activityStatusEnum.answerOk, aComps.join(' ')));
+    } else {
+      //Todo ...
+    }
   }
 
   handleReceiveExpression(dispatch) {
@@ -97,6 +136,7 @@ class Controller extends Component {
 
   render() {
     const handlers = {
+      answer: this.handleAnswer,
       sidebarOptionSelected: this.handleSidebarOptionSelected,
       receiveExpression: this.handleReceiveExpression,
     };

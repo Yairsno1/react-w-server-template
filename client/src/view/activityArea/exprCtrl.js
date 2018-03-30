@@ -1,6 +1,21 @@
 import React, {Component} from 'react';
 //import PropTypes from 'prop-types';
 
+export class ACtrl extends Component {
+  render()
+  {
+    return(
+      <div className="w3-container w3-center">
+        <p dir="ltr" className="w3-xxxlarge w3-text-black">
+          <b>{this.props.text}</b>
+          <span>&#160;&#160;&#160;</span>
+          <span className="fa fa-smile-o w3-xxxlarge"></span>
+        </p>
+      </div>
+    );
+  }
+}
+
 export class QCtrl extends Component {
   render()
   {

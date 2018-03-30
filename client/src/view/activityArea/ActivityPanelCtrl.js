@@ -37,6 +37,9 @@ class ActivityPanelCtrl extends Component {
           key={routeEnum.add}
           color={"green"}
           onNextQ={this.props.onNextQ}
+          onAnswer={(a) =>
+            {this.props.onAnswer(a);}
+          }
         />
       } else if (routeEnum.sub === this.props.activity) {
         activityCtrl = <ActivityCrtlMock color={"deep-orange"} text={"6-2"}/>

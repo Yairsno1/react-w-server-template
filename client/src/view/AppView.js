@@ -15,7 +15,8 @@ class AppView extends Component {
         <Sidebar onOptionSelected={ehs.sidebarOptionSelected}/>
         <ActivityPanel
           route={this.props.route}
-          onNextQ={ehs.receiveExpression} />
+          onNextQ={ehs.receiveExpression}
+          onAnswer={ehs.answer} />
       </div>
     );
   }

@@ -12,6 +12,17 @@ class QandA {
     this.rightOprnd = NaN;
     this.op = operation;
     this.result = NaN;
+    this.expectedResult = NaN;
+  }
+
+  clone() {
+    let rv = new QandA(this.op);
+    rv.leftOprnd = this.leftOprnd;
+    rv.rightOprnd = this.rightOprnd;
+    rv.result = this.result;
+    rv.expectedResult = this.expectedResult;
+
+    return rv;
   }
 
   genExprMock(operation) {
@@ -26,19 +37,27 @@ class QandA {
     }
   }
 
+  isCorrectResult() {
+    return (this.expectedResult === this.result);
+  }
+
+
   genAddExprMock() {
     this.leftOprnd = Math.floor(Math.random() * 11);
     this.rightOprnd = Math.floor(Math.random() * 11);
+    this.expectedResult = this.leftOprnd + this.rightOprnd;
   }
 
   genSubExprMock() {
     this.leftOprnd = Math.floor(Math.random() * 21);
     this.rightOprnd = Math.floor(Math.random() * (this.leftOprnd-1)); //right <= left
+    this.expectedResult = this.leftOprnd - this.rightOprnd;
   }
 
   genMultExprMock() {
     this.leftOprnd = 1 + Math.floor(Math.random() * 10);
     this.rightOprnd = 1 + Math.floor(Math.random() * 10);
+    this.expectedResult = this.leftOprnd * this.rightOprnd;
   }
 
   genDivExprMock() {
@@ -47,6 +66,7 @@ class QandA {
 
     this.leftOprnd = l * r;
     this.rightOprnd = r;
+    this.expectedResult = l;
   }
 
 }
