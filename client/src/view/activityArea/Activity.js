@@ -18,6 +18,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     answer: (a) => {
       ownProps.onAnswer(a);
     },
+    play: () => {
+      ownProps.onPlay();
+    }
   };
 };
 

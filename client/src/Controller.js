@@ -5,7 +5,8 @@ import {routeEnum} from './util/navHelper';
 import {
   generateQuestionAction,
   changeOperationAction,
-  correctAnswerAction} from './actions';
+  correctAnswerAction,
+  getNextQuestionAction} from './actions';
 import activityStatusEnum from './view/activityArea/activityStatusEnum';
 import AppView from './view/AppView';
 import PropTypes from 'prop-types';
@@ -65,6 +66,7 @@ class Controller extends Component {
     this.state = {model: new QandA(operationKindEnum.noOp)};
 
     this.handleAnswer = this.handleAnswer.bind(this);
+    this.handleNextQ = this.handleNextQ.bind(this);
     this.handleReceiveExpression = this.handleReceiveExpression.bind(this);
     this.handleSidebarOptionSelected = this.handleSidebarOptionSelected.bind(this);
   }
@@ -92,6 +94,16 @@ class Controller extends Component {
     } else {
       //Todo ...
     }
+  }
+
+  handleNextQ(dispatch) {
+    const nextModelObj = new QandA(this.state.model.op);
+    this.setState({
+      model: nextModelObj
+    });
+
+    dispatch(getNextQuestionAction());
+
   }
 
   handleReceiveExpression(dispatch) {
@@ -137,6 +149,7 @@ class Controller extends Component {
   render() {
     const handlers = {
       answer: this.handleAnswer,
+      nextQ: this.handleNextQ,
       sidebarOptionSelected: this.handleSidebarOptionSelected,
       receiveExpression: this.handleReceiveExpression,
     };

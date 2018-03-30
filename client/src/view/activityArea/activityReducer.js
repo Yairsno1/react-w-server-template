@@ -2,7 +2,8 @@ import activityStatusEnum from './activityStatusEnum';
 import {
   GENERATE_Q,
   CHANGE_OPERATION,
-  CORRECT_A} from '../../actions';
+  CORRECT_A,
+  GET_NEXT_Q} from '../../actions';
 
 const activityTextReducer = (
   state={
@@ -17,7 +18,7 @@ const activityTextReducer = (
       status: action.status,
       qText: action.qText,
     };
-  } else if (CHANGE_OPERATION === action.type) {
+  } else if (CHANGE_OPERATION === action.type || GET_NEXT_Q === action.type) {
     rv = {
       status: activityStatusEnum.next,
       qText: '',

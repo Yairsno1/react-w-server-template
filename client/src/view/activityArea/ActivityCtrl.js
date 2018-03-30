@@ -7,10 +7,6 @@ import PropTypes from 'prop-types';
 
 class ActivityCtrl extends Component {
 
-  componentDidMount() {
-    this.props.nextQ();
-  }
-
   render() {
     const classItems = [
       'w3-content',
@@ -26,7 +22,7 @@ class ActivityCtrl extends Component {
     let CmdCtrl = null;
     const status = this.props.activityStatus;
     if (activityStatusEnum.next === status) {
-      ExprCtrl = <WaitCtrl />;
+      ExprCtrl = <WaitCtrl receiveQ={this.props.nextQ}/>;
       CmdCtrl = <div/>
     } else if (activityStatusEnum.q === status) {
       ExprCtrl = <QCtrl text={this.props.qText}/>;
@@ -40,6 +36,9 @@ class ActivityCtrl extends Component {
       ExprCtrl = <ACtrl text={this.props.qText}/>;
       CmdCtrl = <NextQCtrl
         btnColor={this.props.color}
+        nextQ={() =>
+          {this.props.play();}
+        }
       />
     }
 
@@ -57,6 +56,8 @@ class ActivityCtrl extends Component {
 ActivityCtrl.propTypes = {
   color: PropTypes.string.isRequired,
   nextQ: PropTypes.func.isRequired,
+  answer: PropTypes.func.isRequired,
+  play: PropTypes.func.isRequired,
 };
 
 export default ActivityCtrl;

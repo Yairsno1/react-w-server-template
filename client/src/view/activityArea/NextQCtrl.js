@@ -15,7 +15,7 @@ class NextQCtrl extends Component {
     return (
       <div className="w3-container">
         <p className="w3-center">
-          <button className={btnClassItems.join(' ')}>
+          <button className={btnClassItems.join(' ')} onClick={this.props.nextQ}>
             <span className="fa fa-play"></span>
           </button>
         </p>
@@ -26,7 +26,7 @@ class NextQCtrl extends Component {
 
 NextQCtrl.propTypes = {
   btnColor: PropTypes.string.isRequired,
-  //submitAnswer: PropTypes.func.isRequired,
+  nextQ: PropTypes.func.isRequired,
 };
 
 export default NextQCtrl;

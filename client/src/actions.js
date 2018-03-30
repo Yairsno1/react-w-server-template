@@ -2,6 +2,7 @@
 export const CHANGE_OPERATION = 'CHANGE_OPERATION';
 export const CORRECT_A = 'CORRECT_A';
 export const GENERATE_Q = 'GENERATE_Q';
+export const GET_NEXT_Q = 'GET_NEXT_Q';
 
 // --- action creators ---
 
@@ -24,5 +25,11 @@ export function generateQuestionAction(status, qText) {
     type: GENERATE_Q,
     status: status,
     qText: qText,
+  };
+}
+
+export function getNextQuestionAction() {
+  return {
+    type: GET_NEXT_Q,
   };
 }

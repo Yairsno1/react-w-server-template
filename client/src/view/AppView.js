@@ -16,7 +16,8 @@ class AppView extends Component {
         <ActivityPanel
           route={this.props.route}
           onNextQ={ehs.receiveExpression}
-          onAnswer={ehs.answer} />
+          onAnswer={ehs.answer}
+          onPlay={ehs.nextQ} />
       </div>
     );
   }

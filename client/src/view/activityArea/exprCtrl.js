@@ -30,6 +30,10 @@ export class QCtrl extends Component {
 }
 
 export class WaitCtrl extends Component {
+  componentDidMount() {
+    this.props.receiveQ();
+  }
+
   render()
   {
     return(
