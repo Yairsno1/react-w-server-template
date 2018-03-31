@@ -72,28 +72,36 @@ class Controller extends Component {
   }
 
   handleAnswer(dispatch, answer) {
-    let nextModelObj;
-    let answerOk;
+    //-------------------------------------------
+    //AJAX mock
+    //Remove after AJAX call will be implemented.
+    setTimeout(() => {
+        let nextModelObj;
+        let answerOk;
 
-    nextModelObj = this.state.model.clone();
-    nextModelObj.result = answer;
-    answerOk = nextModelObj.isCorrectResult();
+        nextModelObj = this.state.model.clone();
+        nextModelObj.result = answer;
+        answerOk = nextModelObj.isCorrectResult();
 
-    this.setState(
-      {model: nextModelObj}
+        this.setState(
+          {model: nextModelObj}
+        );
+
+        if (answerOk) {
+          const aComps = [
+            expressionBuilder(nextModelObj),
+            '=',
+            answer
+          ];
+
+          dispatch(correctAnswerAction(activityStatusEnum.answerOk, aComps.join(' ')));
+        } else {
+          //Todo ...
+        }
+      },
+      1000
     );
-
-    if (answerOk) {
-      const aComps = [
-        expressionBuilder(nextModelObj),
-        '=',
-        answer
-      ];
-
-      dispatch(correctAnswerAction(activityStatusEnum.answerOk, aComps.join(' ')));
-    } else {
-      //Todo ...
-    }
+    //-------------------------------------------
   }
 
   handleNextQ(dispatch) {

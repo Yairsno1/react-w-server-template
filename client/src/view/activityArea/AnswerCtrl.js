@@ -5,7 +5,10 @@ class AnswerCtrl extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {value: NaN};
+    this.state = {
+      value: NaN,
+      submitted: false,
+    };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -28,6 +31,7 @@ class AnswerCtrl extends Component {
 
     const answer = this.state.value;
     if (!isNaN(answer)) {
+      this.setState({submitted: true});
       this.props.submitAnswer(answer);
     }
   }
@@ -42,10 +46,17 @@ class AnswerCtrl extends Component {
       'w3-text-' + this.props.submitBtnColor,
       'w3-hover-black'];
 
+      const labelClassItems = [
+        'w3-padding-16',
+        'fa fa-calculator',
+        'w3-xxlarge',
+        'w3-text-black',
+        this.state.submitted ? 'w3-spin' : ''];
+
     return (
       <form className="w3-container w3-center hp-answer" onSubmit={this.handleSubmit}>
         <label>
-          <span className="w3-padding-16 fa fa-calculator w3-xxlarge w3-text-black"></span>
+          <span className={labelClassItems.join(' ')}></span>
           <input
             type="text"
             name="answer"
