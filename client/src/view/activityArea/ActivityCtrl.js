@@ -3,6 +3,7 @@ import activityStatusEnum from './activityStatusEnum';
 import {WaitCtrl, QCtrl, ACtrl} from './exprCtrl';
 import AnswerCtrl from './AnswerCtrl';
 import NextQCtrl from './NextQCtrl';
+import WrongCtrl from './WrongCtrl';
 import PropTypes from 'prop-types';
 
 class ActivityCtrl extends Component {
@@ -14,9 +15,9 @@ class ActivityCtrl extends Component {
       'w3-padding-16',
       'w3-' + this.props.color];
 
-    const style = {
-      border: 'solid 3px black'
-    };
+     const style = {
+       border: 'solid 3px black'
+     };
 
     let ExprCtrl = null;
     let CmdCtrl = null;
@@ -34,6 +35,25 @@ class ActivityCtrl extends Component {
       />
     } else if (activityStatusEnum.answerOk === status) {
       ExprCtrl = <ACtrl text={this.props.qText}/>;
+      CmdCtrl = <NextQCtrl
+        btnColor={this.props.color}
+        nextQ={() =>
+          {this.props.play();}
+        }
+      />
+    } else if (activityStatusEnum.answerWrong === status) {
+      ExprCtrl = <QCtrl text={this.props.qText}/>;
+      CmdCtrl = <WrongCtrl
+        btnColor={this.props.color}
+        retry={() =>
+          {this.props.retry();}
+        }
+        showA={() =>
+          {this.props.showAnswer();}
+        }
+      />
+    } else if (activityStatusEnum.answerShow === status) {
+      ExprCtrl = <QCtrl text={this.props.qText}/>;
       CmdCtrl = <NextQCtrl
         btnColor={this.props.color}
         nextQ={() =>

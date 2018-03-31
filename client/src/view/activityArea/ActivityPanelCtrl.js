@@ -43,6 +43,12 @@ class ActivityPanelCtrl extends Component {
           onPlay={() =>
             {this.props.onPlay();}
           }
+          onRetry={() =>
+            {this.props.onRetry();}
+          }
+          onShowAnswer={() =>
+            {this.props.onShowAnswer();}
+          }
         />
       } else if (routeEnum.sub === this.props.activity) {
         activityCtrl = <ActivityCrtlMock color={"deep-orange"} text={"6-2"}/>
@@ -63,6 +69,9 @@ class ActivityPanelCtrl extends Component {
 ActivityPanelCtrl.propTypes = {
   activity: PropTypes.string.isRequired,
   onNextQ: PropTypes.func.isRequired,
+  onAnswer: PropTypes.func.isRequired,
+  onPlay: PropTypes.func.isRequired,
+  onRetry: PropTypes.func.isRequired,
 };
 
 export default ActivityPanelCtrl;

@@ -5,8 +5,10 @@ import {routeEnum} from './util/navHelper';
 import {
   generateQuestionAction,
   changeOperationAction,
-  correctAnswerAction,
-  getNextQuestionAction} from './actions';
+  hasAnswerAction,
+  getNextQuestionAction,
+  retryQuestionAction,
+  showAnswerAction} from './actions';
 import activityStatusEnum from './view/activityArea/activityStatusEnum';
 import AppView from './view/AppView';
 import PropTypes from 'prop-types';
@@ -68,7 +70,9 @@ class Controller extends Component {
     this.handleAnswer = this.handleAnswer.bind(this);
     this.handleNextQ = this.handleNextQ.bind(this);
     this.handleReceiveExpression = this.handleReceiveExpression.bind(this);
+    this.handleRetry = this.handleRetry.bind(this);
     this.handleSidebarOptionSelected = this.handleSidebarOptionSelected.bind(this);
+    this.handleShowAnswer = this.handleShowAnswer.bind(this);
   }
 
   handleAnswer(dispatch, answer) {
@@ -94,9 +98,14 @@ class Controller extends Component {
             answer
           ];
 
-          dispatch(correctAnswerAction(activityStatusEnum.answerOk, aComps.join(' ')));
+          dispatch(hasAnswerAction(activityStatusEnum.answerOk, aComps.join(' ')));
         } else {
-          //Todo ...
+          const aComps = [
+            expressionBuilder(nextModelObj),
+            '= ?'
+          ];
+
+          dispatch(hasAnswerAction(activityStatusEnum.answerWrong, aComps.join(' ')));
         }
       },
       1000
@@ -140,6 +149,26 @@ class Controller extends Component {
     //Todo ...
   }
 
+  handleRetry(dispatch) {
+    const qComps = [
+      this.state.model.leftOprnd,
+      getOperationSymbol(this.state.model.op),
+      this.state.model.rightOprnd,
+      '= ?'
+    ];
+    dispatch(retryQuestionAction(activityStatusEnum.q, qComps.join(' ')));
+  }
+
+  handleShowAnswer(dispatch) {
+    const aComps = [
+      expressionBuilder(this.state.model),
+      '=',
+      this.state.model.expectedResult
+    ];
+
+    dispatch(showAnswerAction(activityStatusEnum.answerShow, aComps.join(' ')));
+  }
+
   handleSidebarOptionSelected(dispatch, option) {
     this.setState({
       model: new QandA(route2Op(option))
@@ -160,6 +189,8 @@ class Controller extends Component {
       nextQ: this.handleNextQ,
       sidebarOptionSelected: this.handleSidebarOptionSelected,
       receiveExpression: this.handleReceiveExpression,
+      retry: this.handleRetry,
+      showAnswer: this.handleShowAnswer,
     };
 
     return (

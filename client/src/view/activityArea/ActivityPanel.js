@@ -21,6 +21,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     onPlay: () => {
       ownProps.onPlay(dispatch);
     },
+    onRetry: () => {
+      ownProps.onRetry(dispatch);
+    },
+    onShowAnswer: () => {
+      ownProps.onShowAnswer(dispatch);
+    },
   };
 };
 

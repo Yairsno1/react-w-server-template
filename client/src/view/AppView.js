@@ -17,7 +17,9 @@ class AppView extends Component {
           route={this.props.route}
           onNextQ={ehs.receiveExpression}
           onAnswer={ehs.answer}
-          onPlay={ehs.nextQ} />
+          onPlay={ehs.nextQ}
+          onRetry={ehs.retry}
+          onShowAnswer={ehs.showAnswer}/>
       </div>
     );
   }
