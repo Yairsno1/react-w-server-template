@@ -29,7 +29,7 @@ class QandA {
     if (operationKindEnum.add === operation) {
       this.genAddExprMock();
     } else if (operationKindEnum.sub === operation) {
-      this.genAddExprMock();
+      this.genSubExprMock();
     } else if (operationKindEnum.mult === operation) {
       this.genMultExprMock();
     } else if (operationKindEnum.div === operation) {
