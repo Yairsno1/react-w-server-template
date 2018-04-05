@@ -170,11 +170,14 @@ class Controller extends Component {
   }
 
   handleSidebarOptionSelected(dispatch, option) {
-    this.setState({
-      model: new QandA(route2Op(option))
-    });
+    const op = route2Op(option);
+    if (op !== this.state.model.op) {
+      this.setState({
+        model: new QandA(route2Op(option))
+      });
 
-    dispatch(changeOperationAction());
+      dispatch(changeOperationAction());
+    }
   }
 
   componentDidMount() {
