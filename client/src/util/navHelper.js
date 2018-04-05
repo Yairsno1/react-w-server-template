@@ -22,3 +22,15 @@ export function getActivityColor(route) {
 
   return rv;
 }
+
+export function isLegalRoute(route) {
+  let rv = false;
+
+  const tmpRoute = (route || '').toUpperCase();
+  rv = (tmpRoute === routeEnum.home ||
+    tmpRoute === routeEnum.add ||
+    tmpRoute === routeEnum.sub ||
+    tmpRoute === routeEnum.mult ||
+    tmpRoute === routeEnum.div);
+  return rv;
+}
