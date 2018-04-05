@@ -16,16 +16,16 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       ownProps.onNextQ(dispatch);
     },
     answer: (a) => {
-      ownProps.onAnswer(a);
+      ownProps.onAnswer(dispatch, a);
     },
     play: () => {
-      ownProps.onPlay();
+      ownProps.onPlay(dispatch);
     },
     retry: () => {
-      ownProps.onRetry();
+      ownProps.onRetry(dispatch);
     },
     showAnswer: () => {
-      ownProps.onShowAnswer();
+      ownProps.onShowAnswer(dispatch);
     },
   };
 };
