@@ -1,22 +1,13 @@
-import {routeEnum} from '../util/navHelper';
+import {routeEnum, getActivityColor} from '../util/navHelper';
 import Home from './activityArea/Home';
 import Activity from './activityArea/Activity';
 import React from 'react';
 
 function resolveRoute(route, props) {
   let rv = null;
-  let activityColor = "";
 
+  const activityColor = getActivityColor(route);
   const activity = route ? route.toUpperCase() : routeEnum.home;
-  if (routeEnum.add === activity) {
-    activityColor = "green";
-  } else if (routeEnum.sub === activity) {
-    activityColor = "deep-orange";
-  } else if (routeEnum.mult === activity) {
-    activityColor = "blue";
-  }  else if (routeEnum.div === activity) {
-    activityColor = "yellow";
-  }
 
   if (routeEnum.home === activity) {
     rv = <Home key={'HOME'} />
