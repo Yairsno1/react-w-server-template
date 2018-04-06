@@ -9,7 +9,7 @@ class SidebarOption extends Component {
     const selected = this.props.isSelected ? true : false;
 
     if (selected) {
-      classItems.push('w3-rightbar');
+      classItems.push('w3-leftbar');
       classItems.push('w3-border-' + this.props.color);
     }
 

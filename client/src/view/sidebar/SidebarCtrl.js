@@ -1,19 +1,11 @@
 import React, {Component} from 'react';
 import SidebarNavigation from './SidebarNavigation';
-import {routeEnum} from '../../util/navHelper';
+import {routeEnum, routeColors as colors} from '../../util/navHelper';
 import SidebarOption from './SidebarOption';
 import SidebarOptionIconButton from './SidebarOptionIconButton';
 import SidebarOptionText from './SidebarOptionText';
 import SidebarOptionTextButton from './SidebarOptionTextButton';
 import PropTypes from 'prop-types';
-
-const colors = {
-  home: 'white',
-  plus: 'green',
-  minus: 'deep-orange',
-  multiply: 'blue',
-  divide: 'yellow',
-};
 
 class SidebarCtrl extends Component {
   render () {
@@ -44,17 +36,17 @@ class SidebarCtrl extends Component {
         <SidebarNavigation url={routeEnum.add}>
           <SidebarOption
             isSelected={routeEnum.add === selectedOption}
-            color={colors.plus}
+            color={colors.add}
             theBtn={
               <SidebarOptionTextButton
                 content="&#43;"
-                textColor={colors.plus}
+                textColor={colors.add}
                 onSelected={() => this.props.onOptionSelected(routeEnum.add)}
               >
               </SidebarOptionTextButton>
             }
             theTxt={
-              <SidebarOptionText value={'חיבור'} color={colors.plus} />
+              <SidebarOptionText value={'חיבור'} color={colors.add} />
             }
           >
           </SidebarOption>
@@ -63,17 +55,17 @@ class SidebarCtrl extends Component {
         <SidebarNavigation url={routeEnum.sub}>
           <SidebarOption
             isSelected={routeEnum.sub === selectedOption}
-            color={colors.minus}
+            color={colors.sub}
             theBtn={
               <SidebarOptionTextButton
                 content="&#8722;"
-                textColor={colors.minus}
+                textColor={colors.sub}
                 onSelected={() => this.props.onOptionSelected(routeEnum.sub)}
               >
               </SidebarOptionTextButton>
             }
             theTxt={
-              <SidebarOptionText value={'חיסור'} color={colors.minus} />
+              <SidebarOptionText value={'חיסור'} color={colors.sub} />
             }
           >
           </SidebarOption>
@@ -82,17 +74,17 @@ class SidebarCtrl extends Component {
         <SidebarNavigation url={routeEnum.mult}>
           <SidebarOption
             isSelected={routeEnum.mult === selectedOption}
-            color={colors.multiply}
+            color={colors.mult}
             theBtn={
               <SidebarOptionTextButton
                 content="&#215;"
-                textColor={colors.multiply}
+                textColor={colors.mult}
                 onSelected={() => this.props.onOptionSelected(routeEnum.mult)}
               >
               </SidebarOptionTextButton>
             }
             theTxt={
-              <SidebarOptionText value={'כפל'} color={colors.multiply} />
+              <SidebarOptionText value={'כפל'} color={colors.mult} />
             }
           >
           </SidebarOption>
@@ -101,17 +93,17 @@ class SidebarCtrl extends Component {
         <SidebarNavigation url={routeEnum.div}>
           <SidebarOption
             isSelected={routeEnum.div === selectedOption}
-            color={colors.divide}
+            color={colors.div}
             theBtn={
               <SidebarOptionTextButton
                 content="&#247;"
-                textColor={colors.divide}
+                textColor={colors.div}
                 onSelected={() => this.props.onOptionSelected(routeEnum.div)}
               >
               </SidebarOptionTextButton>
             }
             theTxt={
-              <SidebarOptionText value={'חילוק'} color={colors.divide}/>
+              <SidebarOptionText value={'חילוק'} color={colors.div}/>
             }
           >
           </SidebarOption>

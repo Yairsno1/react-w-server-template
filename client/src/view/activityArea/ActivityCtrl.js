@@ -5,12 +5,13 @@ import AnswerCtrl from './AnswerCtrl';
 import NextQCtrl from './NextQCtrl';
 import WrongCtrl from './WrongCtrl';
 import PropTypes from 'prop-types';
+import welcome from '../../images/welcome.png'
 
 class ActivityCtrl extends Component {
 
   render() {
     const classItems = [
-      'w3-content',
+      'w3-display-middle',
       'w3-container',
       'w3-padding-16',
       'w3-' + this.props.color];
@@ -63,10 +64,13 @@ class ActivityCtrl extends Component {
     }
 
     return (
-      <div className={classItems.join(' ')}>
-        <div className="w3-round-xlarge" style={style}>
-          {ExprCtrl}
-          {CmdCtrl}
+      <div>
+        <img src={welcome} alt="background" className="w3-opacity" style={{width: "100%",}}/>
+        <div className={classItems.join(' ')}  style={{width: "50%",}}>
+          <div className="w3-round-xlarge" style={style}>
+            {ExprCtrl}
+            {CmdCtrl}
+          </div>
         </div>
       </div>
     );

@@ -55,7 +55,7 @@ const getOperationSymbol = (operation) => {
   } else if (operationKindEnum.mult === operation) {
     rv = 'x';
   } else if (operationKindEnum.div === operation) {
-    rv = '/'; //Todo: replace symbol
+    rv = '\u00F7';
   }
 
   return rv;

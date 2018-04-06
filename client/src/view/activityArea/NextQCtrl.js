@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import tooltipProps from './tooltipProps';
 import PropTypes from 'prop-types';
 
 class NextQCtrl extends Component {
@@ -14,9 +15,14 @@ class NextQCtrl extends Component {
 
     return (
       <div className="w3-container">
-        <p className="w3-center">
+        <p className="w3-center w3-tooltip">
           <button className={btnClassItems.join(' ')} onClick={this.props.nextQ}>
             <span className="fa fa-play"></span>
+            <span
+              className={tooltipProps.classItems}
+              style={tooltipProps.styleItems}>
+              תרגיל נוסף
+            </span>
           </button>
         </p>
       </div>

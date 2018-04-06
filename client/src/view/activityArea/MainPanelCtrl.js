@@ -7,12 +7,13 @@ class MainPanelCtrl extends Component {
       'w3-col',
       's9',
       'm10',
-      'l11',
-      'w3-padding-48'];
+      'l11'];
 
     return (
       <div className={classItems.join(' ')}>
-        {this.props.children}
+        <div className="w3-display-container">
+          {this.props.children}
+        </div>
       </div>
     );
   }

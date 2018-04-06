@@ -6,18 +6,26 @@ export const routeEnum = {
   div: 'DIVIDE',
 }
 
+export const routeColors = {
+  home: 'white',
+  add: 'green',
+  sub: 'deep-orange',
+  mult: 'blue',
+  div: 'yellow',
+};
+
 export function getActivityColor(route) {
-  let rv = '';
+  let rv = routeColors.home;
 
   const activity = route ? route.toUpperCase() : routeEnum.home;
   if (routeEnum.add === activity) {
-    rv = "green";
+    rv = routeColors.add;
   } else if (routeEnum.sub === activity) {
-    rv = "deep-orange";
+    rv = routeColors.sub;
   } else if (routeEnum.mult === activity) {
-    rv = "blue";
+    rv = routeColors.mult;
   }  else if (routeEnum.div === activity) {
-    rv = "yellow";
+    rv = routeColors.div;
   }
 
   return rv;
