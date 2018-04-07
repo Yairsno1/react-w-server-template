@@ -10,6 +10,7 @@ import {
   retryQuestionAction,
   showAnswerAction} from './actions';
 import activityStatusEnum from './view/activityArea/activityStatusEnum';
+import fetch from 'cross-fetch';
 import AppView from './view/AppView';
 import PropTypes from 'prop-types';
 
@@ -146,7 +147,16 @@ class Controller extends Component {
       2000
     );
     //-------------------------------------------
-    //Todo ...
+    fetch('/ping')
+         .then(response => null)
+         .then(json => {
+              //console.log('');
+            },
+            (error) => {
+              console.log("Error: " + error);
+            }
+          );
+
   }
 
   handleRetry(dispatch) {
@@ -171,6 +181,7 @@ class Controller extends Component {
 
   handleSidebarOptionSelected(dispatch, option) {
     const op = route2Op(option);
+
     if (op !== this.state.model.op) {
       this.setState({
         model: new QandA(route2Op(option))
