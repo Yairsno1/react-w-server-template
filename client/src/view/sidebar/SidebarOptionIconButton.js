@@ -13,7 +13,7 @@ class SidebarOptionIconButton extends Component {
       'w3-xxlarge'];
 
     return (
-      <AbsSidebarOptionButton textColor={iconColor} onSelected={this.props.onSelected}>
+      <AbsSidebarOptionButton textColor={iconColor}>
         <span className={classItems.join(' ')}></span>
       </AbsSidebarOptionButton>
     );
@@ -23,7 +23,6 @@ class SidebarOptionIconButton extends Component {
 SidebarOptionIconButton.propTypes = {
   content: PropTypes.string.isRequired,
   iconColor: PropTypes.string.isRequired,
-  onSelected: PropTypes.func.isRequired,
 };
 
 export default SidebarOptionIconButton;

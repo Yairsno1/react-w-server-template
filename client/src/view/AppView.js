@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import {isLegalRoute} from '../util/navHelper';
+import withRouteListener from './sidebar/withRouteListener';
 import Sidebar from './sidebar/Sidebar';
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import {isLegalRoute} from '../util/navHelper';
 import CreatePageForRoute from './CreatePageForRoute';
 import PageNotFound from './PageNotFound';
 import MainPanelCtrl from './activityArea/MainPanelCtrl';
@@ -11,38 +13,44 @@ class AppView extends Component {
 
   constructor(props) {
     super(props);
-    this.routeTrack = {
-      url: this.props.route || '',
-      mainPanelCtrl: null,
-    };
-  }
 
-  componentWillMount() {
-    this.routeTrack.url = this.props.route || '';
-    this.routeTrack.mainPanelCtrl = CreatePageForRoute(MainPanelCtrl, this.props.route, resolveRoute);
+    this.state = {url: undefined};
+
+    this.handleRouteChange = this.handleRouteChange.bind(this);
+
+    //-----------------------------------
+    //Todo: make this code block lib function.
+    const NavigationWithListener = withRouteListener(Sidebar, this.handleRouteChange);
+    this.Navigation = <Router>
+      <Route
+        path="/:url?"
+        component={
+          (props) => <NavigationWithListener url={props.match.params.url}/>
+        }
+      />
+    </Router>
+  }
+  //------------------------------------
+
+  handleRouteChange(newUrl) {
+    this.props.eventHandlers.routeChanged(newUrl);
+    this.setState({url: newUrl});
   }
 
   render() {
-    const routeFound = isLegalRoute(this.props.route);
-    const tmpRoute = routeFound  ? this.props.route || '' : '404';
+    const currUrl = this.state.url;
+    const routeFound = isLegalRoute(currUrl);
     const ehs = this.props.eventHandlers;
 
-    //Demo of the two method to pass React-Router's route to components
-    //1. <Sidebar/> use withRouter()
-    //2. With <MainPanel /> the route is injected as prop.
-    if (tmpRoute.toUpperCase() !== (this.routeTrack.url).toUpperCase()) {
-      this.routeTrack.url = tmpRoute;
-      this.routeTrack.mainPanelCtrl = routeFound ?
-        CreatePageForRoute(MainPanelCtrl, this.props.route, resolveRoute) :
-        <PageNotFound/>;
-    }
+    const MainPanel = routeFound ?
+      CreatePageForRoute(MainPanelCtrl, currUrl, resolveRoute) :
+      <PageNotFound/>;
 
-    const MainPanel = this.routeTrack.mainPanelCtrl;
     let rv = null;
     if (routeFound) {
       rv = (
         <div className="w3-row">
-          <Sidebar onOptionSelected={ehs.sidebarOptionSelected}/>
+          {this.Navigation}
           <MainPanel eventHandlers={ehs}/>
         </div>
       );

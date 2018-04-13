@@ -1,17 +1,10 @@
 //action types
-export const CHANGE_OPERATION = 'CHANGE_OPERATION';
 export const GENERATE_Q = 'GENERATE_Q';
 export const GET_NEXT_Q = 'GET_NEXT_Q';
 export const HAS_A = 'HAS_A';
 export const RETRY_Q = 'RETRY_Q';
 export const SHOW_A = 'SHOW_A';
 // --- action creators ---
-
-export function changeOperationAction() {
-  return {
-    type: CHANGE_OPERATION,
-  };
-}
 
 export function hasAnswerAction(status, qText) {
   return {

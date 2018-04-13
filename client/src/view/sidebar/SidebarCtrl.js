@@ -22,7 +22,6 @@ class SidebarCtrl extends Component {
               <SidebarOptionIconButton
                 content={'fa fa-home'}
                 iconColor={colors.home}
-                onSelected={() => this.props.onOptionSelected(routeEnum.home)}
               >
               </SidebarOptionIconButton>
             }
@@ -41,7 +40,6 @@ class SidebarCtrl extends Component {
               <SidebarOptionTextButton
                 content="&#43;"
                 textColor={colors.add}
-                onSelected={() => this.props.onOptionSelected(routeEnum.add)}
               >
               </SidebarOptionTextButton>
             }
@@ -60,7 +58,6 @@ class SidebarCtrl extends Component {
               <SidebarOptionTextButton
                 content="&#8722;"
                 textColor={colors.sub}
-                onSelected={() => this.props.onOptionSelected(routeEnum.sub)}
               >
               </SidebarOptionTextButton>
             }
@@ -79,7 +76,6 @@ class SidebarCtrl extends Component {
               <SidebarOptionTextButton
                 content="&#215;"
                 textColor={colors.mult}
-                onSelected={() => this.props.onOptionSelected(routeEnum.mult)}
               >
               </SidebarOptionTextButton>
             }
@@ -98,7 +94,6 @@ class SidebarCtrl extends Component {
               <SidebarOptionTextButton
                 content="&#247;"
                 textColor={colors.div}
-                onSelected={() => this.props.onOptionSelected(routeEnum.div)}
               >
               </SidebarOptionTextButton>
             }
