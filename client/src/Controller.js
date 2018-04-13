@@ -4,7 +4,6 @@ import QandA from './model/QandA';
 import {routeEnum} from './util/navHelper';
 import {
   generateQuestionAction,
-  changeOperationAction,
   hasAnswerAction,
   getNextQuestionAction,
   retryQuestionAction,
@@ -66,13 +65,13 @@ class Controller extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {model: new QandA(operationKindEnum.noOp)};
+    this.model = new QandA(operationKindEnum.noOp);
 
     this.handleAnswer = this.handleAnswer.bind(this);
     this.handleNextQ = this.handleNextQ.bind(this);
     this.handleReceiveExpression = this.handleReceiveExpression.bind(this);
     this.handleRetry = this.handleRetry.bind(this);
-    this.handleSidebarOptionSelected = this.handleSidebarOptionSelected.bind(this);
+    this.handleRouteChanged = this.handleRouteChanged.bind(this);
     this.handleShowAnswer = this.handleShowAnswer.bind(this);
   }
 
@@ -84,17 +83,15 @@ class Controller extends Component {
         let nextModelObj;
         let answerOk;
 
-        nextModelObj = this.state.model.clone();
+        nextModelObj = this.model.clone();
         nextModelObj.result = answer;
         answerOk = nextModelObj.isCorrectResult();
 
-        this.setState(
-          {model: nextModelObj}
-        );
+        this.model = nextModelObj;
 
         if (answerOk) {
           const aComps = [
-            expressionBuilder(nextModelObj),
+            expressionBuilder(this.model),
             '=',
             answer
           ];
@@ -102,7 +99,7 @@ class Controller extends Component {
           dispatch(hasAnswerAction(activityStatusEnum.answerOk, aComps.join(' ')));
         } else {
           const aComps = [
-            expressionBuilder(nextModelObj),
+            expressionBuilder(this.model),
             '= ?'
           ];
 
@@ -115,13 +112,10 @@ class Controller extends Component {
   }
 
   handleNextQ(dispatch) {
-    const nextModelObj = new QandA(this.state.model.op);
-    this.setState({
-      model: nextModelObj
-    });
+    const nextModelObj = new QandA(this.model.op);
+    this.model = nextModelObj;
 
     dispatch(getNextQuestionAction());
-
   }
 
   handleReceiveExpression(dispatch) {
@@ -129,17 +123,14 @@ class Controller extends Component {
     //AJAX mock
     //Remove after AJAX call will be implemented.
     setTimeout(() => {
-        this.setState((currState, props) => {
-          let nextModelObj = new QandA(currState.model.op);
-          nextModelObj.genExprMock(nextModelObj.op);
-
-          return {model: nextModelObj}
-        });
+        let nextModelObj = new QandA(this.model.op);
+        nextModelObj.genExprMock(nextModelObj.op);
+        this.model = nextModelObj;
 
         const qComps = [
-          this.state.model.leftOprnd,
-          getOperationSymbol(this.state.model.op),
-          this.state.model.rightOprnd,
+          this.model.leftOprnd,
+          getOperationSymbol(this.model.op),
+          this.model.rightOprnd,
           '= ?'
         ];
         dispatch(generateQuestionAction(activityStatusEnum.q, qComps.join(' ')));
@@ -148,22 +139,22 @@ class Controller extends Component {
     );
     //-------------------------------------------
     fetch('/ping')
-         .then(response => null)
-         .then(json => {
-              //console.log('');
-            },
-            (error) => {
-              console.log("Error: " + error);
-            }
-          );
+      .then(response => null)
+      .then(json => {
+          //console.log('');
+        },
+        (error) => {
+          console.log("Error: " + error);
+        }
+      );
 
   }
 
   handleRetry(dispatch) {
     const qComps = [
-      this.state.model.leftOprnd,
-      getOperationSymbol(this.state.model.op),
-      this.state.model.rightOprnd,
+      this.model.leftOprnd,
+      getOperationSymbol(this.model.op),
+      this.model.rightOprnd,
       '= ?'
     ];
     dispatch(retryQuestionAction(activityStatusEnum.q, qComps.join(' ')));
@@ -171,24 +162,17 @@ class Controller extends Component {
 
   handleShowAnswer(dispatch) {
     const aComps = [
-      expressionBuilder(this.state.model),
+      expressionBuilder(this.model),
       '=',
-      this.state.model.expectedResult
+      this.model.expectedResult
     ];
 
     dispatch(showAnswerAction(activityStatusEnum.answerShow, aComps.join(' ')));
   }
 
-  handleSidebarOptionSelected(dispatch, option) {
-    const op = route2Op(option);
-
-    if (op !== this.state.model.op) {
-      this.setState({
-        model: new QandA(route2Op(option))
-      });
-
-      dispatch(changeOperationAction());
-    }
+  handleRouteChanged(option) {
+    this.model = new QandA(route2Op(option));
+    this.props.store.dispatch(getNextQuestionAction());
   }
 
   componentDidMount() {
@@ -201,22 +185,18 @@ class Controller extends Component {
     const handlers = {
       answer: this.handleAnswer,
       nextQ: this.handleNextQ,
-      sidebarOptionSelected: this.handleSidebarOptionSelected,
       receiveExpression: this.handleReceiveExpression,
       retry: this.handleRetry,
       showAnswer: this.handleShowAnswer,
     };
 
     return (
-      <AppView
-        route={this.props.route}
-        eventHandlers={handlers}/>
+      <AppView onRouteChange={this.handleRouteChanged} eventHandlers={handlers}/>
     );
   }
 }
 
 Controller.propTypes = {
-  route: PropTypes.string,
   store: PropTypes.object.isRequired,
 };
 
