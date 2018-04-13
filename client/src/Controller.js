@@ -9,7 +9,7 @@ import {
   retryQuestionAction,
   showAnswerAction} from './actions';
 import activityStatusEnum from './view/activityArea/activityStatusEnum';
-//import fetch from 'cross-fetch';
+import fetch from 'cross-fetch';
 import AppView from './view/AppView';
 import PropTypes from 'prop-types';
 
