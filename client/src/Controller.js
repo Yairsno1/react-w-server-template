@@ -138,15 +138,15 @@ class Controller extends Component {
       2000
     );
     //-------------------------------------------
-    // fetch('/ping')
-    //   .then(response => null)
-    //   .then(json => {
-    //       //console.log('');
-    //     },
-    //     (error) => {
-    //       console.log("Error: " + error);
-    //     }
-    //   );
+    fetch('/ping')
+      .then(response => null)
+      .then(json => {
+          //console.log('');
+        },
+        (error) => {
+          console.log("Error: " + error);
+        }
+      );
 
   }
 
@@ -185,14 +185,13 @@ class Controller extends Component {
     const handlers = {
       answer: this.handleAnswer,
       nextQ: this.handleNextQ,
-      routeChanged: this.handleRouteChanged,
       receiveExpression: this.handleReceiveExpression,
       retry: this.handleRetry,
       showAnswer: this.handleShowAnswer,
     };
 
     return (
-      <AppView eventHandlers={handlers}/>
+      <AppView onRouteChange={this.handleRouteChanged} eventHandlers={handlers}/>
     );
   }
 }

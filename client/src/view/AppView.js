@@ -33,7 +33,7 @@ class AppView extends Component {
   //------------------------------------
 
   handleRouteChange(newUrl) {
-    this.props.eventHandlers.routeChanged(newUrl);
+    this.props.onRouteChange(newUrl);
     this.setState({url: newUrl});
   }
 
