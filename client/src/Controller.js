@@ -91,6 +91,7 @@ class Controller extends Component {
     this.handleShowAnswer = this.handleShowAnswer.bind(this);
 
     this.expressionReceived = this.expressionReceived.bind(this);
+    this.solutionReceived = this.solutionReceived.bind(this);
   }
 
   expressionReceived(dispatch, model, data) {
@@ -107,39 +108,19 @@ class Controller extends Component {
   }
 
   handleAnswer(dispatch, answer) {
-    //-------------------------------------------
-    //AJAX mock
-    //Remove after AJAX call will be implemented.
-    setTimeout(() => {
-        let nextModelObj;
-        let answerOk;
-
-        nextModelObj = this.model.clone();
-        nextModelObj.result = answer;
-        answerOk = nextModelObj.isCorrectResult();
-
-        this.model = nextModelObj;
-
-        if (answerOk) {
-          const aComps = [
-            expressionBuilder(this.model),
-            '=',
-            answer
-          ];
-
-          dispatch(hasAnswerAction(activityStatusEnum.answerOk, aComps.join(' ')));
-        } else {
-          const aComps = [
-            expressionBuilder(this.model),
-            '= ?'
-          ];
-
-          dispatch(hasAnswerAction(activityStatusEnum.answerWrong, aComps.join(' ')));
-        }
-      },
-      1000
-    );
-    //-------------------------------------------
+    window.fetch(`/a/${op2ApiRoute(this.model.op)}`, {  //cross-fetch BUG: application/json is sent as plain/text
+      method: 'POST',
+      headers: new Headers({
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }),
+      body: JSON.stringify({leftOperand: this.model.leftOprnd, rightOperand: this.model.rightOprnd, answer: answer}),
+    })
+    .then(res => res.json())
+    .then(json => {
+      this.solutionReceived(dispatch, json);
+    })
+    .catch(error => console.error('Error:', error));
   }
 
   handleNextQ(dispatch) {
@@ -186,6 +167,28 @@ class Controller extends Component {
   handleRouteChanged(option) {
     this.model = new QandA(route2Op(option));
     this.props.store.dispatch(getNextQuestionAction());
+  }
+
+  solutionReceived(dispatch, data) {
+    this.model.expectedResult = data.solution;
+    const answerOk = data.correct;
+
+    if (answerOk) {
+      const aComps = [
+        expressionBuilder(this.model),
+        '=',
+        this.model.expectedResult
+      ];
+
+      dispatch(hasAnswerAction(activityStatusEnum.answerOk, aComps.join(' ')));
+    } else {
+      const aComps = [
+        expressionBuilder(this.model),
+        '= ?'
+      ];
+
+      dispatch(hasAnswerAction(activityStatusEnum.answerWrong, aComps.join(' ')));
+    }
   }
 
   componentDidMount() {
