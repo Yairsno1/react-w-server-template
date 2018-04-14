@@ -1,4 +1,5 @@
 'use strict';
+
 const express = require('express');
 const bodyParser = require('body-parser')
 const path = require('path');
@@ -13,28 +14,15 @@ app.use(express.static(path.join(__dirname, 'build')));
 //app.use(bodyParser.urlencoded({extended: true}));
 
 let homeRouter = express.Router();
+let qRouter = require('./api/q/q');
+
 /* GET home page. */
 homeRouter.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'public', 'index.html')); //res.render('index.html');
 });
 
 app.use('/', homeRouter);
-app.get('/ping', function (req, res) {
-  console.log('pong');
- });
-
- app.get('/api/add', (req, res) => {
-   console.log(req.query);
-   let success = false;
-   let result = 0;
-   if (Number(req.query.left) !== NaN && Number(req.query.right) !== NaN) {
-     success = true;
-     result = Number(req.query.left) + Number(req.query.right);
-   }
-   res.json({result: result, success: success});
- });
-
-//app.use('/users', users);
+app.use('/q', qRouter);
 
 // catch 404 and forward to error handler
 // app.use(function (req, res, next) {

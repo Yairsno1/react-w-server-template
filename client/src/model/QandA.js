@@ -25,48 +25,23 @@ class QandA {
     return rv;
   }
 
-  genExprMock(operation) {
-    if (operationKindEnum.add === operation) {
-      this.genAddExprMock();
-    } else if (operationKindEnum.sub === operation) {
-      this.genSubExprMock();
-    } else if (operationKindEnum.mult === operation) {
-      this.genMultExprMock();
-    } else if (operationKindEnum.div === operation) {
-      this.genDivExprMock();
+  setExpression(leftOperand, rightOperand) {
+    this.leftOprnd = leftOperand;
+    this.rightOprnd = rightOperand;
+
+    if (operationKindEnum.add === this.op) {
+      this.expectedResult = this.leftOprnd + this.rightOprnd;
+    } else if (operationKindEnum.sub === this.op) {
+      this.expectedResult = this.leftOprnd - this.rightOprnd;
+    } else if (operationKindEnum.mult === this.op) {
+      this.expectedResult = this.leftOprnd * this.rightOprnd;
+    } else if (operationKindEnum.div === this.op) {
+      this.expectedResult = Math.floor(this.leftOprnd / this.rightOprnd);
     }
   }
 
   isCorrectResult() {
     return (this.expectedResult === this.result);
-  }
-
-
-  genAddExprMock() {
-    this.leftOprnd = Math.floor(Math.random() * 11);
-    this.rightOprnd = Math.floor(Math.random() * 11);
-    this.expectedResult = this.leftOprnd + this.rightOprnd;
-  }
-
-  genSubExprMock() {
-    this.leftOprnd = Math.floor(Math.random() * 21);
-    this.rightOprnd = Math.floor(Math.random() * (this.leftOprnd-1)); //right <= left
-    this.expectedResult = this.leftOprnd - this.rightOprnd;
-  }
-
-  genMultExprMock() {
-    this.leftOprnd = 1 + Math.floor(Math.random() * 10);
-    this.rightOprnd = 1 + Math.floor(Math.random() * 10);
-    this.expectedResult = this.leftOprnd * this.rightOprnd;
-  }
-
-  genDivExprMock() {
-    const l = 1 + Math.floor(Math.random() * 10);
-    const r = 1 + Math.floor(Math.random() * 10);
-
-    this.leftOprnd = l * r;
-    this.rightOprnd = r;
-    this.expectedResult = l;
   }
 
 }

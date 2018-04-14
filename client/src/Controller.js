@@ -33,6 +33,22 @@ const route2Op = (route) => {
   return rv;
 };
 
+const op2ApiRoute = (op) => {
+  let rv = 'add';
+
+  if (operationKindEnum.add === op) {
+    rv = 'add';
+  } else if (operationKindEnum.sub === op) {
+    rv = 'substract';
+  } else if (operationKindEnum.mult === op) {
+    rv = 'multiply';
+  } else if (operationKindEnum.div === op) {
+    rv = 'divide';
+  }
+
+  return rv;
+};
+
 //We have the model object as parameter instead of this.state.model
 //because at times of call to this function, the state wasn't refreshed yet.
 const expressionBuilder = (model) => {
@@ -73,6 +89,21 @@ class Controller extends Component {
     this.handleRetry = this.handleRetry.bind(this);
     this.handleRouteChanged = this.handleRouteChanged.bind(this);
     this.handleShowAnswer = this.handleShowAnswer.bind(this);
+
+    this.expressionReceived = this.expressionReceived.bind(this);
+  }
+
+  expressionReceived(dispatch, model, data) {
+    model.setExpression(data.left, data.right);
+    this.model = model;
+
+    const qComps = [
+      this.model.leftOprnd,
+      getOperationSymbol(this.model.op),
+      this.model.rightOprnd,
+      '= ?'
+    ];
+    dispatch(generateQuestionAction(activityStatusEnum.q, qComps.join(' ')));
   }
 
   handleAnswer(dispatch, answer) {
@@ -119,35 +150,17 @@ class Controller extends Component {
   }
 
   handleReceiveExpression(dispatch) {
-    //-------------------------------------------
-    //AJAX mock
-    //Remove after AJAX call will be implemented.
-    setTimeout(() => {
-        let nextModelObj = new QandA(this.model.op);
-        nextModelObj.genExprMock(nextModelObj.op);
-        this.model = nextModelObj;
-
-        const qComps = [
-          this.model.leftOprnd,
-          getOperationSymbol(this.model.op),
-          this.model.rightOprnd,
-          '= ?'
-        ];
-        dispatch(generateQuestionAction(activityStatusEnum.q, qComps.join(' ')));
+    let nextModelObj = new QandA(this.model.op);
+    fetch(`/q/${op2ApiRoute(this.model.op)}`)
+    .then(response => response.json())
+    .then(
+      json => {
+        this.expressionReceived(dispatch, nextModelObj, json);
       },
-      2000
+      (error) => {
+        console.log("Error: " + error); //Todo: render the UI with a message
+      }
     );
-    //-------------------------------------------
-    fetch('/ping')
-      .then(response => null)
-      .then(json => {
-          //console.log('');
-        },
-        (error) => {
-          console.log("Error: " + error);
-        }
-      );
-
   }
 
   handleRetry(dispatch) {
