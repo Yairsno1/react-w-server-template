@@ -7,9 +7,11 @@ import {
   hasAnswerAction,
   getNextQuestionAction,
   retryQuestionAction,
-  showAnswerAction} from './actions';
+  showAnswerAction,
+  fireErrorAction,
+  hideErrorAction} from './actions';
 import activityStatusEnum from './view/activityArea/activityStatusEnum';
-import fetch from 'cross-fetch';
+import {fetchJsonGet, fetchJsonPostWithResult} from './util/fetchLib';
 import AppView from './view/AppView';
 import PropTypes from 'prop-types';
 
@@ -89,9 +91,12 @@ class Controller extends Component {
     this.handleRetry = this.handleRetry.bind(this);
     this.handleRouteChanged = this.handleRouteChanged.bind(this);
     this.handleShowAnswer = this.handleShowAnswer.bind(this);
+    this.handleHideError = this.handleHideError.bind(this);
 
     this.expressionReceived = this.expressionReceived.bind(this);
+    this.expressionRequsetError = this.expressionRequsetError.bind(this);
     this.solutionReceived = this.solutionReceived.bind(this);
+    this.solutionRequsetError = this.solutionRequsetError.bind(this);
   }
 
   expressionReceived(dispatch, model, data) {
@@ -107,20 +112,28 @@ class Controller extends Component {
     dispatch(generateQuestionAction(activityStatusEnum.q, qComps.join(' ')));
   }
 
+  expressionRequsetError(dispatch, errorExcp) {
+    //The advise in the error message is en experiment, not very useful ...
+    dispatch(fireErrorAction("טעינת תרגיל נכשלה, נסה/י לרענן את הדף", errorExcp.message))
+  }
+
   handleAnswer(dispatch, answer) {
-    window.fetch(`/a/${op2ApiRoute(this.model.op)}`, {  //cross-fetch BUG: application/json is sent as plain/text
-      method: 'POST',
-      headers: new Headers({
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }),
-      body: JSON.stringify({leftOperand: this.model.leftOprnd, rightOperand: this.model.rightOprnd, answer: answer}),
-    })
-    .then(res => res.json())
-    .then(json => {
-      this.solutionReceived(dispatch, json);
-    })
-    .catch(error => console.error('Error:', error));
+    const aUrl = `/a/${op2ApiRoute(this.model.op)}`;
+    const data = {
+      leftOperand: this.model.leftOprnd,
+      rightOperand: this.model.rightOprnd,
+      answer: answer};
+
+    fetchJsonPostWithResult(
+      aUrl,
+      data,
+      (result) => { this.solutionReceived(dispatch, result); },
+      (error) => { this.solutionRequsetError(dispatch, error); }
+    );
+  }
+
+  handleHideError(dispatch) {
+    dispatch(hideErrorAction());
   }
 
   handleNextQ(dispatch) {
@@ -132,15 +145,11 @@ class Controller extends Component {
 
   handleReceiveExpression(dispatch) {
     let nextModelObj = new QandA(this.model.op);
-    fetch(`/q/${op2ApiRoute(this.model.op)}`)
-    .then(response => response.json())
-    .then(
-      json => {
-        this.expressionReceived(dispatch, nextModelObj, json);
-      },
-      (error) => {
-        console.log("Error: " + error); //Todo: render the UI with a message
-      }
+
+    fetchJsonGet(
+      `/q/${op2ApiRoute(this.model.op)}`,
+      (result) => { this.expressionReceived(dispatch, nextModelObj, result); },
+      (error) => { this.expressionRequsetError(dispatch, error); }
     );
   }
 
@@ -172,23 +181,30 @@ class Controller extends Component {
   solutionReceived(dispatch, data) {
     this.model.expectedResult = data.solution;
     const answerOk = data.correct;
+    let aComps = [];
 
     if (answerOk) {
-      const aComps = [
+      aComps = [
         expressionBuilder(this.model),
         '=',
         this.model.expectedResult
       ];
-
-      dispatch(hasAnswerAction(activityStatusEnum.answerOk, aComps.join(' ')));
     } else {
-      const aComps = [
+      aComps = [
         expressionBuilder(this.model),
         '= ?'
       ];
-
-      dispatch(hasAnswerAction(activityStatusEnum.answerWrong, aComps.join(' ')));
     }
+
+    dispatch(hasAnswerAction(
+      answerOk ?
+      activityStatusEnum.answerOk: activityStatusEnum.answerWrong,
+      aComps.join(' '))
+    );
+  }
+
+  solutionRequsetError(dispatch, errorExcp) {
+    dispatch(fireErrorAction("שגיאה בבדיקת פתרון התרגיל", errorExcp.message))
   }
 
   componentDidMount() {
@@ -204,6 +220,7 @@ class Controller extends Component {
       receiveExpression: this.handleReceiveExpression,
       retry: this.handleRetry,
       showAnswer: this.handleShowAnswer,
+      hideError: this.handleHideError,
     };
 
     return (

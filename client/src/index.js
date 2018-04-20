@@ -17,6 +17,12 @@ const intialState = {
     status: activityStatusEnum.next,
     qText: '',
   },
+  error: {
+    isError: false,
+    visible: true,
+    message: '',
+    text: '',
+  }
 };
 
 const store = createStore(rootReducer,
