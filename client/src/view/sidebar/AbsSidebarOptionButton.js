@@ -14,7 +14,7 @@ class AbsSidebarOptionButton extends Component {
       'w3-hover-text-black'];
 
     return (
-      <button className={classItems.join(' ')} onClick={this.props.onSelected}>
+      <button className={classItems.join(' ')}>
         {this.props.children}
       </button>
     );
@@ -23,7 +23,6 @@ class AbsSidebarOptionButton extends Component {
 
 AbsSidebarOptionButton.propTypes = {
   textColor: PropTypes.string.isRequired,
-  onSelected: PropTypes.func.isRequired,
 };
 
 export default AbsSidebarOptionButton;

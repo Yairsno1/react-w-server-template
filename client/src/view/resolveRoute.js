@@ -20,6 +20,7 @@ function resolveRoute(route, props) {
       onPlay={props.eventHandlers.nextQ}
       onRetry={props.eventHandlers.retry}
       onShowAnswer={props.eventHandlers.showAnswer}
+      onHideError={props.eventHandlers.hideError}
     />
   }
 

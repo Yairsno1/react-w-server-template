@@ -7,6 +7,8 @@ const mapStateToProps = (state, ownProps) => {
     color: ownProps.color,
     activityStatus: state.activity.status,
     qText: state.activity.qText,
+    error: state.error.isError,
+    errorVisible: state.error.visible,
   };
 };
 
@@ -27,6 +29,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     showAnswer: () => {
       ownProps.onShowAnswer(dispatch);
     },
+    hideError: () => {
+      ownProps.onHideError(dispatch);
+    },
+
   };
 };
 

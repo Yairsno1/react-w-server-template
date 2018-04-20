@@ -1,0 +1,29 @@
+{
+  "name": "react-w-server-template",
+  "version": "1.0.0",
+  "description": "Template React-Redux app that uses web API ",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.1",
+    "eslint": "^4.19.1"
+  },
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node server.js",
+    "client": "node start-client.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yairsno1/react-w-server-template.git"
+  },
+  "author": "Yair Shohat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Yairsno1/react-w-server-template/issues"
+  },
+  "homepage": "https://github.com/Yairsno1/react-w-server-template#readme"
+}

@@ -1,0 +1,18 @@
+REM *******************************************
+REM   Commands to batch installation of the additional
+REM modules that are required for web API using
+REM NodeJS/Express.
+REM *******************************************
+
+@ECHO ON
+
+ECHO installing express ...
+npm install --save express
+
+REM 1. Shouldn't eslint installed globlaly(-g)?
+REM 2. Should eslint has dev dependency at all?
+ECHO installing eslint ...
+npm install --save-dev eslint
+
+ECHO installing concurrently ...
+npm install --save-dev concurrently

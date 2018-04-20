@@ -6,6 +6,7 @@ import NextQCtrl from './NextQCtrl';
 import WrongCtrl from './WrongCtrl';
 import PropTypes from 'prop-types';
 import welcome from '../../images/welcome.png'
+import ErrorFloater from '../error/ErrorFloater';
 
 class ActivityCtrl extends Component {
 
@@ -72,6 +73,7 @@ class ActivityCtrl extends Component {
             {CmdCtrl}
           </div>
         </div>
+        {(this.props.error && this.props.errorVisible) ? <ErrorFloater hideError={this.props.hideError}/> : null}
       </div>
     );
   }
@@ -79,9 +81,12 @@ class ActivityCtrl extends Component {
 
 ActivityCtrl.propTypes = {
   color: PropTypes.string.isRequired,
+  error: PropTypes.bool.isRequired,
+  errorVisible: PropTypes.bool.isRequired,
   nextQ: PropTypes.func.isRequired,
   answer: PropTypes.func.isRequired,
   play: PropTypes.func.isRequired,
+  hideError: PropTypes.func.isRequired,
 };
 
 export default ActivityCtrl;

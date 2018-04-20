@@ -3,7 +3,7 @@ import SidebarCtrl from './SidebarCtrl';
 import {withRouter} from 'react-router';
 
 const mapStateToProps = (state, ownProps) => {
-  const option = ownProps.match.params.route || '';
+  const option = ownProps.match.params.url || ''; //ownProps is set by withRouter(...)
   const selected = option.toUpperCase();
 
   return {
@@ -12,14 +12,13 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    onOptionSelected: (option) => {
-      ownProps.onOptionSelected(dispatch, option);
-    },
-  };
+  return {};
 };
 
 const Sidebar = withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(SidebarCtrl));
+  connect(
+    mapStateToProps,
+    mapDispatchToProps)(SidebarCtrl)
+  );
 
 export default Sidebar;

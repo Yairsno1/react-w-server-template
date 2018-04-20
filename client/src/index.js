@@ -8,7 +8,6 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunkMiddleware from 'redux-thunk';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { Provider } from 'react-redux';
 import Controller from './Controller';
 import registerServiceWorker from './registerServiceWorker';
@@ -18,6 +17,12 @@ const intialState = {
     status: activityStatusEnum.next,
     qText: '',
   },
+  error: {
+    isError: false,
+    visible: true,
+    message: '',
+    text: '',
+  }
 };
 
 const store = createStore(rootReducer,
@@ -28,14 +33,7 @@ const store = createStore(rootReducer,
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
-      <Route
-        path="/:route?"
-        component={
-          (props) => <Controller store={store} route={props.match.params.route}/>
-        }
-      />
-    </Router>
+    <Controller store={store}/>
   </Provider>,
   document.getElementById('root')
 );
