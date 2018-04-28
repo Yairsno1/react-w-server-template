@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AnswerCtrl_snapshot 1`] = `
+<form
+  className="w3-container w3-center hp-answer"
+  onSubmit={[Function]}
+>
+  <label>
+    <span
+      className="w3-padding-16 fa fa-calculator w3-xxlarge w3-text-black "
+    />
+    <input
+      autoComplete="off"
+      autoFocus={true}
+      className="w3-xlarge w3-input hp-input w3-border w3-center"
+      dir="ltr"
+      name="answer"
+      onChange={[Function]}
+      type="text"
+      value=""
+    />
+  </label>
+  <p
+    className="w3-center"
+  >
+    <button
+      className="w3-button hp-btn w3-circle w3-xlarge w3-black w3-text-red w3-hover-black"
+      type="submit"
+    >
+      <b>
+        =
+      </b>
+    </button>
+  </p>
+</form>
+`;

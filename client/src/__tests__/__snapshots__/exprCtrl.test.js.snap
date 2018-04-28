@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`QCtrl QCtrl_snapshot 1`] = `
+<div
+  className="w3-container w3-center"
+>
+  <p
+    className="w3-xxxlarge w3-text-black"
+    dir="ltr"
+  >
+    <b>
+      1 + 1 = ?
+    </b>
+  </p>
+</div>
+`;
+
+exports[`WaitCtrl_snapshot 1`] = `
+<div
+  className="w3-container w3-center"
+>
+  <p
+    className="w3-xxxlarge w3-text-black"
+  >
+    <span
+      className="fa fa-gear w3-xxxlarge w3-spin"
+    />
+    <span>
+       
+    </span>
+    <b>
+      טוען תרגיל ...
+    </b>
+  </p>
+</div>
+`;

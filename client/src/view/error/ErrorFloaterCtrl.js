@@ -37,7 +37,7 @@ class ErrorFloaterCtrl extends Component {
     }
 
     return (
-      <div className="w3-display-topleft w3-opacity-min" style={{padding: '8px'}}>
+      <div className="w3-display-topleft w3-opacity-min w3-animate-zoom" style={{padding: '8px'}}>
         <div className="w3-display-container w3-black">
           <header>
             <span

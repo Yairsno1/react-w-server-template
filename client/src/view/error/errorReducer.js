@@ -3,20 +3,16 @@ import {
   HIDE_ERROR,
 } from '../../actions';
 
+export const erInitialState = {
+  isError: false,
+  visible: true,
+  message: '',
+  text: '',
+};
+
 const errorReducer = (
-  state={
-    isError: false,
-    visible: true,
-    message: '',
-    text: '',
-  },
-  action) => {
-  let rv = {
-    isError: false,
-    visible: true,
-    message: '',
-    text: '',
-  };
+  state=erInitialState, action) => {
+  let rv = Object.assign({}, erInitialState);
 
   if (FIRE_ERROR === action.type) {
     rv.isError = true;

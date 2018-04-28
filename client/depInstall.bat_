@@ -23,3 +23,6 @@ npm install --save react-router-dom
 
 ECHO installing fetch ...
 npm install --save cross-fetch
+
+ECHO installing Enzyme (4 testing React components) ...
+npm install --save-dev enzyme enzyme-adapter-react-16 react-test-renderer jest-enzyme

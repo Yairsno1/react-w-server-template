@@ -19,8 +19,11 @@ class AnswerCtrl extends Component {
 
     //Todo: handle leading zero
     if (isNaN(tmpValue)) {
-      const currValue = this.state.value;
-      event.target.value = isNaN(currValue) ? '' : currValue.toString();
+      this.setState((currState, props) => ({
+        value: isNaN(currState.value) ? '' : currState.value,
+      }));
+      //const currValue = this.state.value;
+      //event.target.value = isNaN(currValue) ? '' : currValue.toString();
     } else {
       this.setState({value: tmpValue});
     }
@@ -30,7 +33,7 @@ class AnswerCtrl extends Component {
     event.preventDefault();
 
     const answer = this.state.value;
-    if (!isNaN(answer)) {
+    if (answer !== '' && !isNaN(answer)) {
       this.setState({submitted: true});
       this.props.submitAnswer(answer);
     }
@@ -64,6 +67,7 @@ class AnswerCtrl extends Component {
             className="w3-xlarge w3-input hp-input w3-border w3-center"
             autoFocus
             autoComplete={"off"}
+            value={isNaN(this.state.value) ? '' : this.state.value}
             onChange={this.handleChange}/>
         </label>
         <p className="w3-center">
