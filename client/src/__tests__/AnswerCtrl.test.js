@@ -10,6 +10,7 @@ beforeEach( () => {
     submitBtnColor: 'red',
     submitAnswer: jest.fn(),
   };
+  m_props.submitAnswer.mockReset();
 });
 
 it('AnswerCtrl_rendersWithoutCrashing', () => {
@@ -102,7 +103,7 @@ it('AnswerCtrl_submit_validInput', () => {
   expect(m_props.submitAnswer).toHaveBeenCalled();
 });
 
-it('AnswerCtrl_submit_sppiner_validInput', () => {
+it('AnswerCtrl_submit_spinner_validInput', () => {
   const expectedSpinClass = 'w3-spin';
   const answer = 100;
 
@@ -137,7 +138,7 @@ it('AnswerCtrl_submit_invalidInput', () => {
   expect(m_props.submitAnswer).not.toHaveBeenCalled();
 });
 
-it('AnswerCtrl_submit_invalidInput', () => {
+it('AnswerCtrl_submit_spinner_invalidInput', () => {
   const expectedSpinClass = 'w3-spin';
   const answer = '10z';
 
@@ -156,4 +157,19 @@ it('AnswerCtrl_submit_invalidInput', () => {
   expect(actualSppiner).not.toHaveClassName(expectedSpinClass);
 });
 
-//TBC: test that the user input is returned by the form on submit
+it('AnswerCtrl_submit_submittedAnswer', () => {
+  const expectedAnswer = 100;
+
+  const answerCtrlComp = mount(<AnswerCtrl {...m_props}/>);
+
+  const input = answerCtrlComp.find('input');
+  input.simulate('change', {
+    target: {
+      value: expectedAnswer.toString(),
+    }
+  });
+  answerCtrlComp.find('form').simulate('submit');
+
+  expect(m_props.submitAnswer).lastCalledWith(expectedAnswer); // ≡ expect(m_props.submitAnswer.mock.calls[0][0]).toEqual(expectedAnswer);
+});
+
