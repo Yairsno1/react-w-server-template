@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AbsSidebarOptionButton_snapshot 1`] = `
+<button
+  className="w3-button hp-btn w3-block w3-padding-small w3-text-red w3-hover-red w3-hover-text-black"
+>
+  <p>
+    Woodoo child
+  </p>
+</button>
+`;

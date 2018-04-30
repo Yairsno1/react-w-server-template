@@ -6,13 +6,14 @@ import {
   RETRY_Q,
   SHOW_A} from '../../actions';
 
+export const arInitialState =  {
+  status: activityStatusEnum.next,
+  qText: ''
+};
+
 const activityTextReducer = (
-  state={
-    status: activityStatusEnum.next,
-    qText: ''
-  },
-  action) => {
-  let rv = state;
+  state=arInitialState, action) => {
+  let rv = Object.assign({},state);
 
   if (GENERATE_Q === action.type || RETRY_Q === action.type) {
     rv = {
